@@ -1,12 +1,37 @@
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import './StudentList.css'
-function StudentList() {
+// import './StudentList.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect, useState } from 'react';
+import StudentDataService from '../Services/student_services'
+
+
+function StudentList({ getStudentId }) {
+
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    getStudents();
+  }, [])
+
+  const getStudents = async () => {
+    const data = await StudentDataService.getAllStudent();
+    
+    setStudents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+  }
+
+  const deleteHandler = async (id) => {
+    await StudentDataService.deleteStudent(id);
+    getStudents();
+  }
+
   return (
     <>
-      <Button variant="primary" type="submit" id="refreshbtn">
+      {/* <pre>{JSON.stringify(students, undefined, 2)}</pre> */}
+      <Button variant="dark edit" onClick={() => getStudents()}>
         Refresh List
       </Button>
+
       <Table responsive border={1} align="center">
         <thead>
           <tr>
@@ -18,54 +43,30 @@ function StudentList() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>Mca</td>
-            <td>
-              <div className='btndiv'>
-                <Button variant="secondary" type="submit" id="editbtn">
-                  Edit
-                </Button>
-                <Button variant="danger" type="submit" id="deletebtn">
-                  Delete
-                </Button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>Mba</td>
-            <td>
-              <div className='btndiv'>
-                <Button variant="secondary" type="submit" id="editbtn">
-                  Edit
-                </Button>
-                <Button variant="danger" type="submit" id="deletebtn">
-                  Delete
-                </Button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry </td>
-            <td>the Bird</td>
-            <td>BBA</td>
-            <td>
-              <div className='btndiv'>
-                <Button variant="secondary" type="submit" id="editbtn">
-                  Edit
-                </Button>
-                <Button variant="danger" type="submit" id="deletebtn">
-                  Delete
-                </Button>
-              </div>
-            </td>
-          </tr>
+          {students.map((doc) => {
+            return (
+              <tr>
+                <td>{doc.sid}</td>
+                <td>{doc.name}</td>
+                <td>{doc.phone}</td>
+                <td>{doc.course}</td>
+                <td>
+                  <div className='btndiv'>
+                    <Button variant="secondary"
+                    onClick={(e) => getStudentId(doc.id)}
+                    >
+                      Edit
+                    </Button>
+                    <Button variant="danger" onClick={(e) => deleteHandler(doc.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+
+            );
+          })}
         </tbody>
       </Table>
     </>
