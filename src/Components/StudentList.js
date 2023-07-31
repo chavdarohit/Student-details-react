@@ -12,7 +12,7 @@ function StudentList({ getStudentId }) {
 
   useEffect(() => { //useefect will get student when page refresh first
     getStudents();
-  }, []) // when [] it will refresh on page start
+  }) // when [] it will refresh on page start
 
   const getStudents = async () => {
     const data = await StudentDataService.getAllStudent();
