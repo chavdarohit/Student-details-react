@@ -10,13 +10,13 @@ function StudentList({ getStudentId }) {
 
   const [students, setStudents] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => { //useefect will get student when page refresh first
     getStudents();
-  }, [])
+  }, []) // when [] it will refresh on page start
 
   const getStudents = async () => {
     const data = await StudentDataService.getAllStudent();
-    
+
     setStudents(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
   }
 
@@ -53,7 +53,7 @@ function StudentList({ getStudentId }) {
                 <td>
                   <div className='btndiv'>
                     <Button variant="secondary"
-                    onClick={(e) => getStudentId(doc.id)}
+                      onClick={(e) => getStudentId(doc.id)}
                     >
                       Edit
                     </Button>

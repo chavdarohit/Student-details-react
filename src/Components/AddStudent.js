@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-// import './AddStudent.css';
+import './AddStudent.css';
 import { Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import StudentDataService from '../Services/student_services'
@@ -98,7 +98,7 @@ function AddStudent({ id, setStudentId }) {
 
       <Form className='sform' onSubmit={handleSubmit}>
         <Form.Group className="header" controlId="header">
-          <Form.Text>Student Details</Form.Text>
+          <Form.Text className="header-text">Student Details</Form.Text>
         </Form.Group>
 
 
