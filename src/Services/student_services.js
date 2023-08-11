@@ -30,4 +30,5 @@ class StudentDataService {
 
 }
 
-export default new StudentDataService();
+let student = new StudentDataService();
+export default student; 
