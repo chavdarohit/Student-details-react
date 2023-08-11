@@ -12,7 +12,8 @@ function StudentList({ getStudentId }) {
 
   useEffect(() => { //useefect will get student when page refresh first
     getStudents();
-  }) // when [] it will refresh on page start
+  },[students]) // when [] it will refresh on page start
+    //if without [dependecy] it will continuosly reload when anything changes in page
 
   const getStudents = async () => {
     const data = await StudentDataService.getAllStudent();
@@ -28,9 +29,9 @@ function StudentList({ getStudentId }) {
   return (
     <>
       {/* <pre>{JSON.stringify(students, undefined, 2)}</pre> */}
-      <Button variant="dark edit" onClick={() => getStudents()}>
+      {/* <Button variant="dark edit" onClick={() => getStudents()}>
         Refresh List
-      </Button>
+      </Button> */}
 
       <Table responsive border={1} align="center">
         <thead>

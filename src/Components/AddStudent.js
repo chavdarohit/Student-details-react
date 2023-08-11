@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import StudentDataService from '../Services/student_services'
 
 
-function AddStudent({ id, setStudentId }) {
+function AddStudent({ id }) {
 
   const [sid, setId] = useState("");
   const [name, setName] = useState("");
@@ -23,7 +23,7 @@ function AddStudent({ id, setStudentId }) {
       setMessage({ error: true, msg: "All fields are mandatory and correct" });
       return;
     }
-    if (phone.length != 10 || isNaN(phone)) {
+    if (phone.length !== 10 || isNaN(phone)) {
       setMessage({ error: true, msg: "Phone number must have 10 digits and Only Numbers" });
       return;
     }

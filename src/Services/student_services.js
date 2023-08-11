@@ -30,4 +30,4 @@ class StudentDataService {
 
 }
 
-export default new StudentDataService;
+export default new StudentDataService();
